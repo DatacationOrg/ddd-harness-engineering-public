@@ -1,17 +1,19 @@
 """Filesystem analysis tools.
 
-`find_duplicate_files` is the worked example for module M2: a tool that does
+`find_duplicate_files` is the worked example for station S2: a tool that does
 something the model genuinely cannot do for itself. The model can read files;
 it cannot hash four hundred of them.
 """
 
-# MODULE M2 STARTER PLACEHOLDER:
+# MODULE S2 STARTER PLACEHOLDER:
 # Keep duplicate detection scaffold visible in starter branches so participants
 # know exactly where to implement and test module 2 behavior.
 
 from dataclasses import dataclass, field
 import hashlib
 from pathlib import Path
+
+from ddd_harness_engineering.sandbox import sandbox_root
 
 _CHUNK_BYTES = 1 << 20
 _MAX_REPORTED_GROUPS = 20
@@ -95,10 +97,44 @@ def find_duplicate_files(subdirectory: str = "") -> str:
         A summary listing each set of identical files, or a message saying none
         were found.
     """
-    # MODULE M2 STARTER PLACEHOLDER:
-    # TODO: Implement duplicate-file analysis for module M2.
-    return (
-        "TODO: Implement find_duplicate_files for module M2. "
-        "Scan sandbox files, group byte-identical duplicates, "
-        "and return a readable summary for the user."
-    )
+    # MODULE S2 STARTER PLACEHOLDER:
+    # Starter branches can replace this implementation body with
+    # TODO/NotImplemented scaffolding for participants to complete.
+    try:
+        root = sandbox_root()
+    except RuntimeError as error:
+        return str(error)
+
+    target = (root / subdirectory).resolve() if subdirectory else root
+    if not str(target).startswith(str(root.resolve())):
+        return (
+            f"Refusing to scan {subdirectory!r}: it is outside the sandbox. "
+            "Pass a path relative to the sandbox root."
+        )
+    if not target.is_dir():
+        return (
+            f"No such directory: {subdirectory!r}. "
+            "Use ls to see what exists, then try again."
+        )
+
+    groups = find_duplicate_groups(target)
+    if not groups:
+        return f"No duplicate files found under {subdirectory or '.'}."
+
+    wasted = sum(group.size_bytes * (len(group.paths) - 1) for group in groups)
+    lines = [
+        f"Found {len(groups)} group(s) of identical files "
+        f"under {subdirectory or '.'}, wasting {wasted:,} bytes.",
+    ]
+    for index, group in enumerate(groups[:_MAX_REPORTED_GROUPS], start=1):
+        lines.append(
+            f"\n{index}. {len(group.paths)} copies, {group.size_bytes:,} bytes each "
+            f"(sha256 {group.digest[:12]}):"
+        )
+        lines.extend(f"   - {path}" for path in group.paths)
+
+    if len(groups) > _MAX_REPORTED_GROUPS:
+        lines.append(
+            f"\n...and {len(groups) - _MAX_REPORTED_GROUPS} more group(s) not shown."
+        )
+    return "\n".join(lines)

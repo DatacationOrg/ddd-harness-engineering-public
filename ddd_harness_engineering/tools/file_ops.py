@@ -1,10 +1,11 @@
-"""Sandbox-safe move/copy/delete tools used in module M2."""
+"""Sandbox-safe move/copy/delete tools used in module S2."""
 
-# MODULE M2 STARTER PLACEHOLDER:
+# MODULE S2 STARTER PLACEHOLDER:
 # Keep move/copy/delete scaffold visible in starter branches. Participants fill
 # these insertion points while preserving sandbox boundary checks.
 
 from pathlib import Path
+import shutil
 
 from ddd_harness_engineering.sandbox import sandbox_root
 
@@ -74,13 +75,20 @@ def move_file(source: str, destination: str) -> str:
     Returns:
         A sentence confirming the move, or explaining why nothing was moved.
     """
-    # MODULE M2 STARTER PLACEHOLDER:
-    # TODO: Implement sandbox-safe move behavior for module M2.
-    return (
-        "TODO: Implement move_file for module M2. "
-        "Validate source and destination inside the sandbox, "
-        "reject overwrites, and return clear user-facing messages."
-    )
+    # MODULE S2 STARTER PLACEHOLDER:
+    # Starter branches can temporarily replace core logic with TODO scaffolds.
+    prepared = _prepare(source, destination, "move")
+    if isinstance(prepared, str):
+        return prepared
+    source_path, destination_path = prepared
+
+    try:
+        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(source_path), str(destination_path))
+    except OSError as error:
+        return f"Could not move {source!r}: {error}"
+
+    return f"Moved {_display(source_path)} to {_display(destination_path)}."
 
 
 def copy_file(source: str, destination: str) -> str:
@@ -101,13 +109,26 @@ def copy_file(source: str, destination: str) -> str:
     Returns:
         A sentence confirming the copy, or explaining why nothing was copied.
     """
-    # MODULE M2 STARTER PLACEHOLDER:
-    # TODO: Implement sandbox-safe copy behavior for module M2.
-    return (
-        "TODO: Implement copy_file for module M2. "
-        "Validate sandbox boundaries, disallow folder copies, "
-        "and return clear user-facing messages."
-    )
+    # MODULE S2 STARTER PLACEHOLDER:
+    # Starter branches can temporarily replace core logic with TODO scaffolds.
+    prepared = _prepare(source, destination, "copy")
+    if isinstance(prepared, str):
+        return prepared
+    source_path, destination_path = prepared
+
+    if source_path.is_dir():
+        return (
+            f"Refusing to copy {_display(source_path)}: it is a folder. "
+            "Copy the files inside it individually."
+        )
+
+    try:
+        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(str(source_path), str(destination_path))
+    except OSError as error:
+        return f"Could not copy {source!r}: {error}"
+
+    return f"Copied {_display(source_path)} to {_display(destination_path)}."
 
 
 def delete_file(path: str) -> str:
@@ -127,10 +148,25 @@ def delete_file(path: str) -> str:
         A sentence confirming the deletion, or explaining why nothing was
         deleted.
     """
-    # MODULE M2 STARTER PLACEHOLDER:
-    # TODO: Implement sandbox-safe delete behavior for module M2.
-    return (
-        "TODO: Implement delete_file for module M2. "
-        "Allow deleting one file inside the sandbox, reject folders, "
-        "and return clear user-facing messages."
-    )
+    # MODULE S2 STARTER PLACEHOLDER:
+    # Starter branches can temporarily replace core logic with TODO scaffolds.
+    try:
+        target = _resolve(path)
+    except ValueError as error:
+        return str(error)
+
+    if not target.exists():
+        return f"Nothing to delete: {path!r} does not exist."
+    if target.is_dir():
+        return (
+            f"Refusing to delete {_display(target)}: it is a folder, and this "
+            "tool deletes one file at a time. Delete the files inside it individually."
+        )
+
+    display = _display(target)
+    try:
+        target.unlink()
+    except OSError as error:
+        return f"Could not delete {path!r}: {error}"
+
+    return f"Deleted {display}. This cannot be undone."

@@ -1,6 +1,6 @@
 """Web search helpers with filtering, truncation, and untrusted-data framing."""
 
-# MODULE M2 STARTER PLACEHOLDER:
+# MODULE S2 STARTER PLACEHOLDER:
 # Keep web-search scaffold visible in starter branches. Participants implement
 # result collection and safe rendering to move from red to green.
 
@@ -140,8 +140,9 @@ def web_search(query: str) -> str:
     Returns:
         Up to five results, each with a title, URL and short snippet.
     """
-    # MODULE M2 STARTER PLACEHOLDER:
-    # Web search remains implemented so participants can focus M2 on other tool logic.
+    # MODULE S2 STARTER PLACEHOLDER:
+    # Starter branches can replace body logic with TODO scaffolding while
+    # preserving the function signature and docstring.
     try:
         results = collect_results(_default_client(), query)
     except Exception as error:  # noqa: BLE001 - the model gets to see and retry

@@ -27,6 +27,7 @@ from ddd_harness_engineering.chat import (
 from ddd_harness_engineering.guardrails import (
     REFUSAL_PREFIX,
     CommandAllowlistMiddleware,
+    python_executable,
 )
 from ddd_harness_engineering.mcp_tools import load_mcp_tools
 from ddd_harness_engineering.sandbox import WORKSPACE_DIR, sandbox_root
@@ -309,8 +310,20 @@ def main_tools() -> list[StructuredTool]:
     Deliberately does not include `web_search`. That tool lives on the research
     subagent instead, so the main agent has no route to the internet.
     """
-    # TODO: (M2) keep assignment tool wiring visible in starter branches.
-    return [find_duplicate_files, move_file, copy_file, delete_file]
+    return [
+        StructuredTool.from_function(
+            get_current_project_context,
+            description="Return short context about the active project.",
+        ),
+        StructuredTool.from_function(find_duplicate_files),
+        # deepagents has no move/copy/delete of its own, so without these the
+        # only way to reorganise the drive is a shell script -- a subprocess for
+        # what is one rename, in a path namespace that does not match the one
+        # every other tool uses. See tools/file_ops.py.
+        StructuredTool.from_function(move_file),
+        StructuredTool.from_function(copy_file),
+        StructuredTool.from_function(delete_file),
+    ]
 
 
 def _main_tool_names() -> set[str]:
