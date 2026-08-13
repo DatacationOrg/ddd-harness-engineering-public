@@ -1,0 +1,61 @@
+<style>
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    margin-left: auto;
+    max-width: 80%;
+    width: fit-content !important;
+}
+
+[data-testid="stChatMessage"] {
+    animation: rise-in 220ms ease-out;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stChatMessageContent"] {
+    background: linear-gradient(135deg, #0d6f77 0%, #0d4e57 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 8px 22px rgba(9, 58, 64, 0.25);
+    color: #f7fbfd;
+    flex: 0 1 auto;
+    max-width: 100% !important;
+    padding: 0.35rem 0.75rem;
+    text-align: right;
+    width: max-content;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stChatMessageContent"],
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stChatMessageContent"] * {
+    color: #f7fbfd !important;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stMarkdownContainer"],
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stMarkdownContainer"] span,
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stMarkdownContainer"] a,
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stMarkdownContainer"] code {
+    color: #f7fbfd !important;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"])
+[data-testid="stChatMessageContent"] {
+    background: light-dark(#f8fbfd, #161c22);
+    border: 1px solid light-dark(#e5edf1, #2c3742);
+    border-radius: 14px;
+    padding: 0.35rem 0.75rem;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"])
+[data-testid="stVerticalBlock"] {
+    max-width: 100%;
+    width: max-content !important;
+}
+</style>

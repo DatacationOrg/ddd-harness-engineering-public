@@ -1,0 +1,105 @@
+<style>
+.trace-row {
+    align-items: flex-start;
+    background: linear-gradient(
+        160deg,
+        light-dark(rgba(255, 255, 255, 0.92), rgba(18, 24, 31, 0.86)) 0%,
+        light-dark(rgba(246, 250, 253, 0.86), rgba(17, 22, 29, 0.82)) 100%
+    );
+    border: 1px solid light-dark(#dfe9ee, #2a3743);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px light-dark(rgba(10, 29, 48, 0.08), rgba(0, 0, 0, 0.26));
+    display: flex;
+    font-size: 13px;
+    gap: 8px;
+    line-height: 1.5;
+    margin: 7px 0;
+    padding: 10px 11px;
+    animation: rise-in 190ms ease-out;
+}
+
+.trace-step {
+    color: light-dark(#6f8795, #90a4b3);
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.trace-badge {
+    border-radius: 999px;
+    flex: 0 0 auto;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    text-transform: uppercase;
+}
+
+/* One colour per ExecutionCategory. A refusal and a failure must never look
+   alike: the first is the harness working, the second is the harness broken. */
+.trace-model     { background: light-dark(#e6eff8, #26384a); color: light-dark(#1e4f88, #afd2ff); }
+.trace-tool      { background: light-dark(#e0f4f1, #1f3b3a); color: light-dark(#1c6b63, #8de4d7); }
+.trace-subagent  { background: light-dark(#e8f0dc, #304020); color: light-dark(#4f6a18, #cae08b); }
+.trace-state     { background: light-dark(#e9f0f2, #2b3640); color: light-dark(#4e6775, #afc5d2); }
+.trace-task      { background: light-dark(#e9f0f2, #2b3640); color: light-dark(#4e6775, #afc5d2); }
+.trace-approval  { background: light-dark(#fff2dc, #493618); color: light-dark(#935300, #ffc98a); }
+.trace-guardrail { background: light-dark(#fde8eb, #4c2429); color: light-dark(#ab2f42, #ff9eab); }
+.trace-error     { background: light-dark(#fde8eb, #4c2429); color: light-dark(#ab2f42, #ff9eab); }
+.trace-internal  { background: light-dark(#eef0f2, #2a3137); color: light-dark(#8a98a3, #91a0ab); }
+
+.trace-copy { flex: 1 1 auto; min-width: 0; }
+.trace-title { align-items: center; display: flex; flex-wrap: wrap; gap: 5px; }
+
+.trace-intent {
+    color: light-dark(#516571, #a9bbc8);
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 3px;
+}
+
+.trace-tool-name {
+    background: light-dark(#eff5f8, #212a33);
+    border-radius: 3px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+.trace-severity {
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    padding: 1px 6px;
+    text-transform: uppercase;
+}
+
+.trace-severity-low {
+    background: light-dark(#e8f5e9, #20392a);
+    color: light-dark(#2e6b3c, #8bd19d);
+}
+
+.trace-severity-medium {
+    background: light-dark(#fff4dc, #43351e);
+    color: light-dark(#8b5b00, #e7bd65);
+}
+
+.trace-severity-high {
+    background: light-dark(#fde9ec, #48252b);
+    color: light-dark(#a92238, #f09aaa);
+}
+
+/* One indent level per `>` in the scope, so a delegation reads as a hop into
+   the subagent's own namespace rather than as a label that says it did. */
+.trace-depth-1 { margin-left: 18px; }
+.trace-depth-2 { margin-left: 36px; }
+.trace-depth-3 { margin-left: 54px; }
+
+.station-check {
+    border-left: 2px solid light-dark(#c7d7df, #3d505d);
+    color: light-dark(#53656f, #90a4b2);
+    font-size: 12px;
+    margin: 4px 0 8px;
+    padding-left: 8px;
+}
+</style>

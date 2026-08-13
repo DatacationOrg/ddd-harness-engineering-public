@@ -1,0 +1,159 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+    color-scheme: light !important;
+    --app-bg-top: #f4f9fb;
+    --app-bg-bottom: #e9f2f5;
+    --app-surface: #ffffff;
+    --app-surface-muted: #f7fbfd;
+    --app-border: #d7e4ea;
+    --app-text: #0f2430;
+    --app-text-muted: #4e6673;
+    --app-brand: #0d6f77;
+    --app-brand-strong: #0b5e65;
+    --app-accent: #e2883d;
+    --app-shadow-soft: 0 6px 22px rgba(8, 28, 42, 0.08);
+    --app-shadow-strong: 0 16px 40px rgba(12, 30, 47, 0.18);
+    --workspace-right-pad: 0px;
+}
+
+[data-testid="stAppViewContainer"] {
+    background:
+        radial-gradient(1200px 420px at -10% -8%, rgba(13, 111, 119, 0.15), transparent 55%),
+        radial-gradient(900px 360px at 108% 3%, rgba(226, 136, 61, 0.14), transparent 54%),
+        linear-gradient(180deg, var(--app-bg-top) 0%, var(--app-bg-bottom) 78%);
+    color: var(--app-text);
+    font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    overflow-x: hidden;
+}
+
+html,
+body,
+[data-testid="stAppViewContainer"] {
+    color-scheme: light !important;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+h1, h2, h3, h4 {
+    color: var(--app-text);
+    font-family: "Manrope", "IBM Plex Sans", sans-serif;
+    letter-spacing: -0.01em;
+}
+
+h1 {
+    font-size: clamp(1.9rem, 1.3rem + 1.4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+p, li, [data-testid="stMarkdownContainer"] {
+    color: var(--app-text);
+}
+
+[data-testid="stCaptionContainer"] p {
+    color: var(--app-text-muted);
+}
+
+[data-testid="stMainBlockContainer"] {
+    max-width: none;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-top: 1.2rem;
+    padding-bottom: 2.4rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: linear-gradient(
+        170deg,
+        light-dark(rgba(255, 255, 255, 0.9), rgba(15, 20, 27, 0.82)) 0%,
+        light-dark(rgba(249, 252, 254, 0.85), rgba(13, 18, 24, 0.8)) 100%
+    );
+    border: 1px solid var(--app-border);
+    border-radius: 14px;
+    box-shadow: var(--app-shadow-soft);
+}
+
+[data-testid="stMetric"] {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(243, 250, 252, 0.84));
+    border: 1px solid var(--app-border);
+    border-radius: 12px;
+    box-shadow: var(--app-shadow-soft);
+    padding: 0.45rem 0.65rem;
+}
+
+[data-testid="stMetricValue"] {
+    font-family: "Manrope", sans-serif;
+    font-weight: 800;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--app-text-muted);
+}
+
+[data-testid="stButton"] button,
+[data-testid="stBaseButton-secondary"] {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: 10px;
+    box-shadow: var(--app-shadow-soft);
+    color: var(--app-text);
+    font-weight: 600;
+    transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+[data-testid="stButton"] button:hover,
+[data-testid="stBaseButton-secondary"]:hover {
+    border-color: #bcd2dd;
+    box-shadow: 0 10px 22px rgba(8, 28, 42, 0.12);
+    transform: translateY(-1px);
+}
+
+[data-testid="stBaseButton-primary"] {
+    background: linear-gradient(135deg, var(--app-brand) 0%, var(--app-brand-strong) 100%);
+    border-color: transparent;
+    color: #eefbfd;
+}
+
+[data-testid="stBaseButton-primary"]:hover {
+    box-shadow: var(--app-shadow-strong);
+}
+
+[data-testid="stStatusWidget"] {
+    border: 1px solid var(--app-border);
+    border-radius: 10px;
+}
+
+[data-testid="stExpander"] {
+    border: 1px solid var(--app-border);
+    border-radius: 10px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(245, 250, 253, 0.8));
+}
+
+[data-testid="stDataFrame"] {
+    border: 1px solid var(--app-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>

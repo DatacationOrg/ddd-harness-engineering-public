@@ -1,0 +1,183 @@
+<style>
+/* Fixed chat panel: anchored to the viewport edge, independent of app columns. */
+.st-key-chat_overlay {
+    background: linear-gradient(
+        145deg,
+        light-dark(rgba(255, 255, 255, 0.95), rgba(18, 23, 31, 0.92)) 0%,
+        light-dark(rgba(245, 251, 253, 0.9), rgba(17, 22, 28, 0.88)) 100%
+    );
+    backdrop-filter: blur(10px);
+    border: 1px solid light-dark(#d5e2e9, #2f3d49);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px light-dark(rgba(12, 36, 56, 0.2), rgba(0, 0, 0, 0.42));
+    position: fixed;
+    right: 16px;
+    top: 86px;
+    width: min(420px, 34vw);
+    max-height: calc(100vh - 106px);
+    z-index: 20;
+    animation: rise-in 260ms ease-out;
+    overflow: hidden;
+}
+
+.st-key-chat_overlay h1,
+.st-key-chat_overlay h2,
+.st-key-chat_overlay h3,
+.st-key-chat_overlay p,
+.st-key-chat_overlay label,
+.st-key-chat_overlay span {
+    color: light-dark(#132936, #d8e6ef);
+}
+
+.st-key-chat_overlay [data-testid="stCaptionContainer"] p {
+    color: light-dark(#4b6472, #9fb3c0);
+}
+
+.st-key-chat_overlay [data-testid="stBaseButton-secondary"],
+.st-key-chat_overlay [data-testid="stButton"] button {
+    background: light-dark(#f7fbfd, #22313d);
+    border-color: light-dark(#d6e4eb, #3a4c5a);
+    color: light-dark(#163848, #e4eef5);
+}
+
+.st-key-chat_overlay textarea,
+.st-key-chat_overlay input {
+    color: light-dark(#143242, #d8e6ef) !important;
+}
+
+.st-key-chat_overlay textarea::placeholder,
+.st-key-chat_overlay input::placeholder {
+    color: light-dark(#4b6472, #a9bfce) !important;
+    opacity: 1 !important;
+}
+
+.st-key-chat_history {
+    background: light-dark(#f6fbfd, #111922);
+    border: 1px solid light-dark(#e2ebf0, #293742);
+    border-radius: 9px;
+    padding: 0 8px;
+    max-height: calc(100vh - 320px);
+    min-height: 260px;
+    overflow-y: auto;
+}
+
+.st-key-chat_peek {
+    position: fixed;
+    right: 16px;
+    top: 116px;
+    width: 136px;
+    z-index: 20;
+}
+
+.st-key-workspace_panel {
+    min-height: clamp(360px, 58vh, 520px);
+}
+
+/* Keep Activity/Harness/Files as the visual priority while chat is open. */
+.st-key-workspace_shell {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    padding-right: var(--workspace-right-pad);
+}
+
+[data-testid="stVerticalBlock"]:has(.st-key-workspace_shell),
+[data-testid="stVerticalBlockBorderWrapper"]:has(.st-key-workspace_shell) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+}
+
+/* Streamlit has horizontal tabs only. This radio group is the workspace's
+   accessible vertical tab list. */
+.st-key-workspace_view [role="radiogroup"] {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.st-key-workspace_view [role="radiogroup"] label {
+    border: 1px solid light-dark(#e1ebf0, #2c3945);
+    border-radius: 8px;
+    padding: 8px 9px;
+    transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+
+.st-key-workspace_view [role="radiogroup"] label:hover {
+    background: light-dark(#f4f9fc, #202c36);
+    transform: translateX(1px);
+}
+
+.st-key-workspace_view [role="radiogroup"] label:has(input:checked) {
+    background: linear-gradient(145deg, #1d5d69 0%, #164954 100%);
+    border-color: #0f3941;
+}
+
+.st-key-workspace_view [role="radiogroup"] label:has(input:checked) p,
+.st-key-workspace_view [role="radiogroup"] label:has(input:checked) span {
+    color: #f2fbff !important;
+}
+
+/* File Explorer tree: flat, left-aligned rows with one Windows-like selected
+   folder highlight. The Python renderer only expands the active branch. */
+[class*="st-key-folder_nav_"] button {
+    border-color: transparent !important;
+    justify-content: flex-start;
+    min-height: 32px;
+    padding: 4px 7px;
+    text-align: left;
+}
+
+[class*="st-key-folder_nav_"] button[kind="secondary"] {
+    background: transparent;
+}
+
+[class*="st-key-folder_nav_"] button[kind="primary"] {
+    background: linear-gradient(135deg, #d8f0f2 0%, #c8e3ea 100%);
+    color: #154853;
+}
+
+@media (max-width: 900px) {
+    .st-key-chat_overlay,
+    .st-key-chat_peek {
+        position: static;
+        width: auto;
+    }
+
+    .st-key-chat_overlay {
+        margin-top: 10px;
+    }
+
+    .st-key-workspace_shell { padding-right: 0; }
+
+    .st-key-workspace_panel { min-height: auto; }
+}
+
+@media (max-width: 1366px) {
+    .st-key-chat_overlay {
+        width: min(390px, 32vw);
+    }
+
+    .st-key-chat_history {
+        max-height: calc(100vh - 300px);
+    }
+}
+
+@media (max-width: 1200px) {
+    .st-key-chat_overlay {
+        width: min(360px, 31vw);
+        right: 12px;
+        top: 78px;
+    }
+
+    .st-key-chat_peek {
+        right: 12px;
+        top: 104px;
+    }
+
+    .st-key-chat_history {
+        max-height: calc(100vh - 286px);
+    }
+}
+</style>

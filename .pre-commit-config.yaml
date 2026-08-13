@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Remove trailing whitespace
+      - id: end-of-file-fixer
+        name: Ensure files end with a newline
+      - id: check-yaml
+        name: Check YAML files
+        args: ["--unsafe"]
+      - id: debug-statements
+        name: Check for debug statements
+      - id: check-merge-conflict
+        name: Check for merge conflict markers
+      - id: check-added-large-files
+        name: Check for large files
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.15
+    hooks:
+      - id: ruff-check
+        name: "Ruff (lint + autofix)"
+        args: ["--fix"]
+      - id: ruff-format
+        name: "Ruff (format)"
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.11.19
+    hooks:
+      - id: uv-lock
+  - repo: https://github.com/DetachHead/basedpyright-prek-mirror
+    rev: 1.39.6
+    hooks:
+      - id: basedpyright
+  - repo: https://github.com/DatacationOrg/pre-commit-hooks
+    rev: v1.1.1
+    hooks:
+      - id: check-uv-lock-vulnerabilities
