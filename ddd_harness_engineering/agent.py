@@ -176,9 +176,17 @@ _REVIEW_CONFIG = cast(
 )
 
 _INTERRUPT_ON: dict[str, bool | InterruptOnConfig] = {
-    # TODO: (M3) add mutating tool approvals here.
+    "write_file": _REVIEW_CONFIG,
+    "edit_file": _REVIEW_CONFIG,
+    "execute": _REVIEW_CONFIG,
+    # Rearranging someone's drive is exactly as consequential as writing to it,
+    # and delete has no undo. A tool that changes the filesystem and is missing
+    # from this dict is a tool that runs unattended.
+    "move_file": _REVIEW_CONFIG,
+    "copy_file": _REVIEW_CONFIG,
+    "delete_file": _REVIEW_CONFIG,
 }
-# MODULE M3 STARTER PLACEHOLDER:
+# MODULE S3 STARTER PLACEHOLDER:
 # In starter branches, keep this approval gate intentionally incomplete and
 # clearly marked. Participants wire mutating tools through human approvals.
 
@@ -364,7 +372,7 @@ def approval_resume(decisions: list[dict[str, Any]]) -> Command:
     return resume_input({"decisions": decisions})
 
 
-# MODULE M3 STARTER PLACEHOLDER:
+# MODULE S3 STARTER PLACEHOLDER:
 # Approval helper functions below are the assignment insertion points for
 # approve/edit/reject behavior in module 3 starter branches.
 
